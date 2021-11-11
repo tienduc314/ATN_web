@@ -77,7 +77,7 @@
 			}
 			else
 			{
-				$sq="SELECT * from public.category WHERE cat_id != '$id' AND cat_name='$name'";
+				$sq="SELECT * FROM public.category WHERE cat_id != '$id' AND cat_name='$name'";
 				$result = pg_query($conn, $sq);
 				if(pg_num_rows($result)==0)
 				{
