@@ -89,7 +89,7 @@
                                 <i class="fa fa-shopping-cart"></i> Cart</a></li> 
                                 <?php
                                     if(isset($_SESSION['us']) && $_SESSION['us'] != ""){
-                                ?>
+                                ?>  
                                     <li><a style="background-color:#069;color:#FFF" href="?page=update_customer">
                                         <i class="fa fa-lock"></i>Hi, <?php echo $_SESSION['us']?></a></li>
                                     <li><a href="?page=logout" style="background-color:#069;color:#FFF";color:#FFF>
