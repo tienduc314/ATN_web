@@ -98,7 +98,7 @@
                                     }
                                     else{
                                 ?>
-                                <li><a href="?page=login1" style="background-color:#069;color:#FFF">
+                                <li><a href="?page=login" style="background-color:#069;color:#FFF">
                                 <i class="fa fa-lock"></i>Login</a></li>
                                 <li><a href="?page=register" style="background-color:#069;color:#FFF">
                                 <i class="fa fa-star"></i>Register</a></li>
