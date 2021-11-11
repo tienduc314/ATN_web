@@ -32,7 +32,7 @@
         if(isset($_GET["id"]))
         {
         $id=$_GET["id"];
-        pg_query($conn, "DELETE from category where cat_id='$id'");
+        pg_query($conn, "DELETE FROM category WHERE cat_id='$id'");
         }
     }
     ?>
