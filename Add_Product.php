@@ -4,7 +4,7 @@
 	<?php
 	include_once("Connection.php");
 	function bind_Category_List($conn){
-		$sqlstring = "SELECT cat_id, cat_name from public.category";
+		$sqlstring = "SELECT cat_id, cat_name FROM public.category";
 		$result = pg_query($conn, $sqlstring);
 		echo"<select name='CategoryList' class='form-control'>
 				<option value='0'>Choose category</option>";
@@ -50,13 +50,13 @@
 			if($pic['type']=="image/jpg" || $pic['type']=="image/jpeg" || $pic['type']=="image/png" || $pic['type']=="image/gif"){
 				if($pic['size'] <= 614400)
 				{
-					$sq = "SELECT * from public.product where product_id='$id' or product_name = '$proname'";
+					$sq = "SELECT * FROM public.product WHERE product_id='$id' or product_name = '$proname'";
 					$result = pg_query($conn, $sq);
 					if(pg_num_rows($result)==0)
 					{
 						copy($pic['tmp_name'], "product-imgs/".$pic['name']);
 						$filePic = $pic['name'];
-						$sqlstring = "INSERT into product(product_id, product_name, price, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id)
+						$sqlstring = "INSERT INTO product(product_id, product_name, price, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id)
 						Values('$id', '$proname', $price, '$short', '$detail', '".date('Y-m-d H:i:s')."',$qty, '$filePic', '$category')";
 
 						pg_query($conn, $sqlstring);
