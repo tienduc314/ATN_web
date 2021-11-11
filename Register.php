@@ -60,7 +60,7 @@ if(isset($_POST['btnRegister']))
 
             VALUES('$us', '$pass', '$fullname', '$sex', '$address', '$tel', '$email', '$date', 
             '$month', '$year', '', '', 0)") or die(pg_error($conn));
-            echo '<meta http-equiv="refresh" content="0;URL=?page=login"/>';
+            echo '<meta http-equiv="refresh" content="0;URL=?page=login1"/>';
         }
         else{
             echo "Username or email already exists";
