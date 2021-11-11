@@ -44,14 +44,14 @@
     <div class="form-group">				    
         <label for="txtUsername" class="col-sm-2 control-label">Username(*):  </label>
 		<div class="col-sm-10">
-		      <input type="text" name="txtUsername" id="txtUsername" class="form-control" placeholder="username" value=""/>
+		      <input type="text" name="txtUsername" id="txtUsername" class="form-control" placeholder="Username" value=""/>
 		</div>
       </div>  
       
     <div class="form-group">
 		<label for="txtPass" class="col-sm-2 control-label">Password(*):  </label>			
 		<div class="col-sm-10">
-		      	<input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="password" value=""/>
+		      	<input type="password" name="txtPass" id="txtPass" class="form-control" placeholder="Password" value=""/>
 		</div>
 	</div> 
 	<div class="form-group"> 
