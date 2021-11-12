@@ -31,7 +31,7 @@
             $us = pg_real_escape_string($conn, $us);
             $pass = md5($pa);
             $res = pg_query($conn, "SELECT username, password, state FROM public.customer WHERE username='$us' AND password='$pass'")
-            or die(pg_error($conn));
+            or die(pg_message($conn));
             $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
             if(pg_num_rows($res)==1){
                 $_SESSION["us"]=$us;
