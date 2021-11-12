@@ -15,18 +15,6 @@
 				}
 		echo "</select>";
 	}
-	
-	function blind_Shops_List($conn)
-	{
-		$sqlstring = "SELECT shop_id, shop_name from public.shops";
-		$result = pg_query($conn, $sqlstring);
-		echo "<select name='ShopsList' class='form-control'>
-		<option value='0'>Choose Shop</option>";
-		while ($row = pg_fetch_assoc($result)) {
-			echo "<option value = '" . $row['shop_id'] . "'>" . $row['shop_name'] . "</option>";
-		}
-		echo "</select>";
-	}
 		
 	if(isset($_POST["btnAdd"]))
 	{
