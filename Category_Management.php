@@ -27,14 +27,12 @@
     <?php
         include_once("Connection.php");
 
-        if(isset($_GET["function"])=="del")
-        {
-        if(isset($_GET["id"]))
-        {
-        $id=$_GET["id"];
-        pg_query($conn, "DELETE FROM category WHERE cat_id='$id'");
+        if(isset($_GET["function"])=="del"){
+            if(isset($_GET["id"])){
+                $id=$_GET["id"];
+                pg_query($conn, "DELETE FROM category WHERE cat_id='$id'");
+            }
         }
-    }
     ?>
         <form name="frm" method="post" action="">
         <h1>Product Category</h1>
