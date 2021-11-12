@@ -44,7 +44,7 @@
         }
     }
 ?>
-
+        
 <h1>Login</h1>
 <form id="form1" name="form1" method="POST">
 <div class="row">
