@@ -1,8 +1,9 @@
 <?php
-include_once("Connection.php");
+    include_once("Connection.php");
 ?>
+<!--
      <div class="slider-area">
-        	<!-- Slider -->
+        	 Slider 
 			<div class="block-slider block-slider4">
 				<ul class="" id="bxslider-home4">
 					<li>
@@ -19,7 +20,7 @@ include_once("Connection.php");
 					</li>
 				</ul>
 			</div>
-    
+    -->
     <!--Gioi thieu cac chuc nang-->
     
     <div class="promo-area">
