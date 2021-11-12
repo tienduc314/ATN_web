@@ -1,3 +1,6 @@
+<!-- Bootstrap -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
 <?php
     if(!isset($_SESSION['admin']) OR $_SESSION['admin']==0)
     {
@@ -7,6 +10,7 @@
     else
     {
 ?>
+
 <script language="javascript">
     function deleteConfirm(){
         if(confirm("Are you sure to delete?")){
@@ -16,10 +20,26 @@
             return false;
         }
     }
-</script>    
+</script>
+<?php
+    include_once("Connection.php");
+    if(isset($_GET["function"])=="del")
+    {
+        if(isset($_GET["id"]))
+        {
+            $id = $_GET["id"];
+            $sq = "SELECT pro_image FROM public.product WHERE product_id='$id'";
+            $res = pg_query($conn, $sq);
+            $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
+            $filePic = $row['pro_image'];
+            unlink("product-imgs/".$filePic);
+            pg_query($conn, "DELETE FROM public.product WHERE product_id='$id'");
+       }
+    }
+?>
+
     
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
 
         <form name="frm" method="post" action="">
         <h1>Product Management</h1>
@@ -43,24 +63,11 @@
 
 			<tbody>
             <?php
-				include_once("Connection.php");
-
-                if(isset($_GET["function"])=="del"){
-                    if(isset($_GET["id"])){
-                        $id = $_GET["id"];
-                        $sq = "SELECT pro_image FROM public.product WHERE product_id='$id'";
-                        $res = pg_query($conn, $sq);
-                        $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
-                        $filePic = $row['pro_image'];
-                        unlink("product-imgs/".$filePic);
-                        pg_query($conn, "DELETE FROM public.product WHERE product_id='$id'");
-                    }
-                }
-
+				//include_once("Connection.php");
                 $No=1;
                 $result = pg_query($conn, "SELECT product_id, product_name, price, pro_qty, pro_image, cat_name FROM product a, category b WHERE a.cat_id = b.cat_id ORDER BY prodate DESC");
                 while($row=pg_fetch_array($result, NULL, PGSQL_ASSOC)){
-                    ?>
+            ?>
                 			
 			<tr>
                 <td><?php echo $No; ?></td>
