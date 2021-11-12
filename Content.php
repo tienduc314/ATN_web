@@ -94,7 +94,7 @@ include_once("Connection.php");
             </div>
         </div>
     </div> <!-- End main content area -->
-    
+  <!--   
     <div class="brands-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
@@ -111,7 +111,7 @@ include_once("Connection.php");
                 </div>
             </div>
         </div>
-    </div> <!-- End brands area -->
+    </div> End brands area -->
     
     
     
