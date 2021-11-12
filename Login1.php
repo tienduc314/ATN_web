@@ -30,7 +30,7 @@
             include_once("Connection.php");
             $us = pg_real_escape_string($conn, $us);
             $pass = md5($pa);
-            $res = pg_query($conn, "SELECT username, password, state FROM public.customer WHERE username='$us' AND password='$pass'")
+            $res = pg_query($conn, "SELECT username, password, state FROM public.customer WHERE username='$us' AND password='$pa'")
             or die(pg_message($conn));
             $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
             if(pg_num_rows($res)==1){
