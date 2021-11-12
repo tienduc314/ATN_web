@@ -195,7 +195,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-about-us">
                         <h2>About us</h2>
-                        <p>After many difficulties when launching the market in 2010, this shoe brand awakened and came back strongly in the Vietnamese shoe industry. With 20 years of experience of the shoe factory has cooperated with many famous brands such as Puma, Reebok, Keds, Burberry, 2017 ATN decided to return to his familiar name and chose this as the starting point for ATN products are 100% made in Vietnam and focus on young people from 18 to 26.</p>
+                        <p>After many difficulties when launching the market in 2010, this toy brand awakened and came back strongly in the Vietnamese toy industry. With 20 years of experience of the toy factory has cooperated with many famous brands such as Puma, Reebok, Keds, Burberry, 2017 ATN decided to return to his familiar name and chose this as the starting point for ATN products are 100% made in Vietnam and focus on young people from 18 to 26.</p>
                         <div class="footer-social">
                             <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
                             <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>

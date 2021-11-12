@@ -25,6 +25,7 @@ include_once("Connection.php");
     <div class="promo-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
+<!-- 
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <img src="images/blog1.jpg" >
@@ -43,8 +44,9 @@ include_once("Connection.php");
                     <div><a href="index.php"><p> SNEAKER FEST VIETNAM</p></a></div>
                 </div>
             </div>
+
         </div>
-    </div> <!-- End promo area -->
+    </div> End promo area -->
     
     
     <div class="maincontent-area">
