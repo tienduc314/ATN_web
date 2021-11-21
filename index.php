@@ -197,15 +197,15 @@
         <div class="col span-1-of-3">
           <ul class="information">
             <h2>Address</h2>
-            <li><i class="fas fa-map-marker-alt"></i>Address: 21, Nguyen Trung Truc street, Ninh Kieu District, Can Tho City</li>
-            <li><i class="fas fa-envelope"></i>Email: duonghqgcc19037@fpt.edu.vn</li>
-            <li><i class="fas fa-phone"></i>Phone: (+84)333119697</li>
+            <li><i class="fas fa-map-marker-alt"></i>Address: 146B, Mau Than street, Ninh Kieu District, Can Tho City</li>
+            <li><i class="fas fa-envelope"></i>Email: ducntgcc19107@fpt.edu.vn</li>
+            <li><i class="fas fa-phone"></i>Phone: (+84)337905287</li>
           </ul>
           <ul class="social-icons">
-            <li><a href="https://www.facebook.com/duongquoccute"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="https://www.facebook.com/duongquoccute"><i class="fab fa-twitter-square"></i></a></li>
-            <li><a href="https://www.facebook.com/duongquoccute"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="https://www.facebook.com/duongquoccute"><i class="fab fa-google-plus-square"></i></a></li>
+            <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="https://www.facebook.com/"><i class="fab fa-twitter-square"></i></a></li>
+            <li><a href="https://www.facebook.com/"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.facebook.com/"><i class="fab fa-google-plus-square"></i></a></li>
           </ul>
         </div>
         <div class="col span-1-of-3">
@@ -232,7 +232,7 @@
       </div>
     </section>
     <p class="copyright">
-      Copyright &copy; 2021 by Dery Team
+      Copyright &copy; 2021 by TienDuc
     </p>
   </footer>
 
