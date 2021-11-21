@@ -1,80 +1,99 @@
-<!-- Bootstrap --> 
-<link rel="stylesheet" type="text/css" href="style.css"/>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="css/bootstrap.min.css">
-  
-    <script language="javascript">
-        function deleteConfirm(){
-            if(confirm("Are you sure to delete!")){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-    </script>
-
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dery</title>
+</head>
+<body>
     <?php
-        if(!isset($_SESSION['admin']) OR $_SESSION['admin']==0)
-        {
-            echo '<script> alert("You are not administrator");</script>';
-            echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-        }
-        else
-        {
+    if (!isset($_SESSION['us']) or $_SESSION ['admin']==0)
+    {
+      echo "<script>alert('You are not adminstrator')</script>";
+      echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
+    }
+    else
+    {
     ?>
 
-    <?php
-        include_once("Connection.php");
 
-        if(isset($_GET["function"])=="del"){
-            if(isset($_GET["id"])){
-                $id=$_GET["id"];
-                pg_query($conn, "DELETE FROM category WHERE cat_id='$id'");
-            }
-        }
-    ?>
-        <form name="frm" method="post" action="">
+      <form name="frm" method="post" action="">
         <h1>Product Category</h1>
         <p>
-        <img src="images/add.png" alt="Add new" width="16" height="16" border="0" /> <a href="?page=add_category"> Add</a>
+        	<img src="./tree/img/add.png" alt="Add_Product" width="16" height="16" border="0"/>
+            <a href="?page=Add_category"> Add new </a> 
         </p>
         <table id="tablecategory" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th><strong>No.</strong></th>
                     <th><strong>Category Name</strong></th>
-                    <th><strong>Desscriptin</strong></th>
+                     <th><strong>Description</strong></th>
                     <th><strong>Edit</strong></th>
                     <th><strong>Delete</strong></th>
                 </tr>
              </thead>
-
 			<tbody>
             <?php
-                $No=1;
-                $result = pg_query($conn,"SELECT * FROM public.category");
-                while($row=pg_fetch_array($result, NULL, PGSQL_ASSOC))
+                include_once("conection.php");
+                if (isset($_GET["function"]) == "del")
                 {
-            ?>
-			<tr>
-              <td class="cotCheckBox"><?php echo $No;?></td>
-              <td><?php echo $row["cat_name"];?></td>
-              <td><?php echo $row["cat_des"];?></td>
-              <td style='text-align:center'><a href="?page=update_category&&id=<?php echo $row["cat_id"];?>"><img src='images/edit.png' border='0'  /></a></td>
-              <td style='text-align:center'><a href="?page=category_management&&function=del&&id=<?php echo $row["cat_id"];?>" onclick="return deleteConfirm()"><img src='images/delete.png' border='0' /></a></td>
-            </tr>
-
-            <?php
-                $No++;
+                    if(isset($_GET["id"]))
+                    {
+                        $id = $_GET["id"];
+                        pg_query($conn, "DELETE FROM category WHERE cat_id='$id'");
+                    }
                 }
                 ?>
+
+                <!-- end get data web-->
+
+                <script language="javascript">
+                    function deleteConfirm()
+                    {
+                        if (confirm("Are you sure delete"))
+                            {
+                                return true;
+                            }
+                        else{
+                                 return false;
+                            }
+                    }
+                </script>
+
+                <!-- get data web-->
+                <?php
+                    $No=1;
+                    $result= pg_query($conn,"SELECT * FROM public.category");
+                    while ($row = pg_fetch_assoc($result))
+                    {   
+                ?>
+			<tr>
+              <td class="cotCheckBox"><?php echo $No; ?></td>
+              <td><?php echo $row["cat_name"]; ?></td>
+              <td><?php echo $row["cat_des"]; ?></td>
+              <td style='text-align:center'><a href="?page=update_category&&id=<?php echo $row["cat_id"];?>"><img src='./tree/img/edit.png' border='0' width="30" height="30" /></td>
+              <td style='text-align:center'><a href="?page=category_management&&function=del&&id=<?php echo $row["cat_id"];?>" onclick="return deleteConfirm()"><img src='./tree/img/delete.png' border='0' width="30" height="30"/></a></td>
+            </tr>
+            <?php
+            $No++;
+            }
+            ?>
 			</tbody>
         </table>  
-        </form>  
-    <?php
+        <div class="row" style="background-color:#FFF">	
+            </div>
+        </div>
+        </form>
+<?php
     }
-    ?>      
+?>
+</body>
+</html>
 
 
-  
+
+
+
+

@@ -1,15 +1,24 @@
-<!-- Bootstrap -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
-	
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./tree/img/logo1.png">
+  <script type="text/javascript" src="./scripts/ckeditor/ckeditor.js"></script>
+  <title>ATN</title>
+</head>
+
+<body>
+ 
 <?php
-	include_once("Connection.php");
+	include_once("conection.php");
 	Function bind_Category_List($conn,$selectedValue){
 		$sqlstring="SELECT cat_id, cat_name FROM public.category";
 		$result = pg_query($conn, $sqlstring);
 		echo "<select name='CategoryList' class='form-control'>
 			<option value='0'>Chose category</option>";
-			while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+			while ($row = pg_fetch_assoc($result)){
 				if($row['cat_id'] == $selectedValue)
 				{
 					echo "<option value='".$row['cat_id']."' selected>".$row['cat_name']."</option>";
@@ -24,10 +33,11 @@
 	{
 		$id= $_GET["id"];
 		$sqlstring = "SELECT product_name, price, smalldesc, detaildesc, prodate,
-		pro_qty, pro_image, cat_id FROM public.product WHERE product_id = '$id' ";
+		pro_qty, pro_image, cat_id
+		FROM public.product WHERE product_id = '$id' ";
 
 		$result = pg_query($conn, $sqlstring);
-		$row = pg_fetch_array($result);
+		$row = pg_fetch_assoc($result);
 		
 		$proname =$row["product_name"];
 		$short = $row['smalldesc'];
@@ -114,7 +124,7 @@
 				<div class="form-group">  
 	                <label for="sphinhanh" class="col-sm-2 control-label">Image(*):  </label>
 							<div class="col-sm-10">
-							<img src='product-imgs/<?php echo $pic; ?>' border='0' width="50" height="50"  />
+							<img src='./tree/img/<?php echo $pic; ?>' border='0' width="50" height="50"  />
 							      <input type="file" name="txtImage" id="txtImage" class="form-control" value=""/>
 							</div>
                 </div>
@@ -122,7 +132,7 @@
 				<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 						      <input type="submit"  class="btn btn-primary" name="btnUpdate" id="btnUpdate" value="Update"/>
-                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Ignore" onclick="window.location='Product_Management.php'" />
+                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Cancel" onclick="window.location='?page=product_management'" />
                               	
 						</div>
 				</div>
@@ -136,7 +146,7 @@
 	}
 ?>
 <?php	
-	
+	include_once("conection.php");
 	if(isset($_POST["btnUpdate"]))
 	{
 		$id=$_POST["txtID"];
@@ -211,14 +221,13 @@
 			}
 			else
 			{
-				$sq="SELECT * FROM public.product WHERE product_id != '$id' AND product_name='$proname'";
+				$sq="SELECT * FROM public.product where product_id != '$id' and product_name='$proname'";
 				$result= pg_query($conn,$sq);
 				if(pg_num_rows($result)==0)
 				{
 					$sqlstring="UPDATE product SET product_name='$proname',
 					price=$price,smalldesc='$short',detaildesc='$detail',pro_qty=$qty,
 					cat_id='$category',prodate='".date('Y-m-d H:i:s')."' WHERE product_id='$id'";
-
 					pg_query($conn,$sqlstring);
 					echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
 				}
@@ -230,3 +239,6 @@
 		} 
 	}
 ?>
+	
+</body>
+</html>
