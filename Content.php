@@ -3,7 +3,7 @@
   ?>
   <!-- category-->
   <div class="row">
-    <div class="col-sm-4">
+    <!-- <div class="col-sm-4">
       <h3>Category</h3>
       <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
@@ -20,7 +20,7 @@
 
         </div>
       </div>
-    </div> <!-- end category-->
+    </div> end category-->
 
     <!-- slide ad-->
     <div class="col-sm-8">
@@ -32,20 +32,20 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./tree/img/slide3.png" class="d-block w-100" alt="slide1" width="500" height="500">
+            <img src="./tree/img/slide3.jpg" class="d-block w-100" alt="slide1" width="500" height="500">
             <div class="carousel-caption d-none d-md-block">
               <h5>Wellcome to Dery</h5>
               <p>Have a good day</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="./tree/img/slide4.png" class="d-block w-100" alt="slide2" width="500" height="450">
+            <img src="./tree/img/slide4.jpg" class="d-block w-100" alt="slide2" width="500" height="450">
             <div class="carousel-caption d-none d-md-block">
               <p>SALE 20%</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="./tree/img/slide2.png" class="d-block w-100" alt="slide3" width="500" height="450">
+            <img src="./tree/img/slide2.jpg" class="d-block w-100" alt="slide3" width="500" height="450">
             <div class="carousel-caption d-none d-md-block">
               <p>SALE 50%</p>
             </div>
