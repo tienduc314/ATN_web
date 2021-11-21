@@ -44,8 +44,6 @@
 		$qty = $_POST['txtQty'];
 		$pic = $_FILES['txtImage'];
 		$category = $_POST['CategoryList'];
-		$shops = $_POST['ShopsList'];
-		$oldprice = $_POST['txtOldPrice'];
 		$err = "";
 		if (trim($id) == "") {
 			$err .= "<li>enter poduct ID, Please</li>";
@@ -74,8 +72,8 @@
 					if (pg_num_rows($result) == 0) {
 						copy($pic['tmp_name'], "./tree/img/" . $pic['name']);
 						$_filePic = $pic['name'];
-						$sqlstring = "INSERT INTO product (product_id, product_name, price, oldprice, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id , shop_id) 
-						VALUES ('$id','$proname','$price','$oldprice','$short','$detail','" . date('Y-m-d H:i:s') . "', $qty,'$_filePic', '$category','$shops')";
+						$sqlstring = "INSERT INTO product (product_id, product_name, price, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id) 
+						VALUES ('$id','$proname','$price','$short','$detail','" . date('Y-m-d H:i:s') . "', $qty,'$_filePic', '$category')";
 						pg_query($conn, $sqlstring);
 						echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
 					} else {
