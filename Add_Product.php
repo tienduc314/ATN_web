@@ -111,9 +111,6 @@
 					<?php blind_Category_List($conn); ?>
 				</div>
 			</div>
-			<!-- chose category -->
-			<!-- chose shops -->
-			<!-- chose shops -->
 			<div class="form-group">
 				<label for="lblGia" class="col-sm-2 control-label">Price(*): </label>
 				<div class="col-sm-10">
