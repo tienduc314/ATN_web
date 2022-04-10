@@ -62,7 +62,7 @@
 					if (pg_num_rows($result) == 0) {
 						copy($pic['tmp_name'], "./tree/img/" . $pic['name']);
 						$_filePic = $pic['name'];
-						$sqlstring = "INSERT INTO public.product (product_id, product_name, price, oldprice, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id , shop_id) 
+						$sqlstring = "INSERT INTO product (product_id, product_name, price, oldprice, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id , shop_id) 
 						VALUES ('$id','$proname','$price','$oldprice','$short','$detail','" . date('Y-m-d H:i:s') . "', $qty,'$_filePic', '$category')";
 						pg_query($conn, $sqlstring);
 						echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
