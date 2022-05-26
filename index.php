@@ -54,7 +54,7 @@
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li><a href="#"><i class="fa fa-phone"></i> +84 3377 505 347</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> ducntgcc19107@fpt.edu.vn</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> @fpt.edu.vn</a></li>
 							</ul>
 						</div>
 					</div>
