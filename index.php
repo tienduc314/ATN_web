@@ -141,7 +141,7 @@ elseif($page=="login"){
 include_once("Login.php");
 }
 elseif($page=="category_management"){
-include_once("Category_Management.php");
+include_once("Category_Management1.php");
 }
 
 elseif($page=="product_management"){
