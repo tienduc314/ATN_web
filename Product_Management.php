@@ -1,13 +1,13 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <?php
-    if (!isset($_SESSION['admin'])or $_SESSION['admin']==0)
-    {
-      echo "<script>alert('You are not adminstrator')</script>";
-      echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-    }
-    else
-    {
+        if(!isset($_SESSION['admin']) OR $_SESSION['admin']==0)
+        {
+            echo '<script> alert("You are not administrator");</script>';
+            echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
+        }
+        else
+        {
     ?>
     <script language="javascript">
         function deleteConfirm(){
@@ -26,7 +26,7 @@
                 $id=$_GET["id"];
                 $sq="select pro_image from product WHERE product_id='$id'";
                 $res = pg_query($conn,$sq);
-                $row = pg_fetch_array($res,PGSQL_ASSOC);
+                $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
                 $filePic = $row['pro_image'];
                 unlink("product-imgs/".$filePic);
                 pg_query($conn,"DELETE FROM product WHERE product_id='$id'");
