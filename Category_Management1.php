@@ -2,15 +2,7 @@
    <link rel="stylesheet" type="text/css" href="style.css"/>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-    <?php
-        if(!isset($_SESSION['admin']) OR $_SESSION['admin']==0)
-        {
-            echo '<script> alert("You are not administrator");</script>';
-            echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-        }
-        else
-        {
-    ?>
+
         <script language="javascript">
         function deleteConfirm(){
             if(confirm("Are you sure to delete!")){
