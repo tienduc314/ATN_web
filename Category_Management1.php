@@ -42,7 +42,7 @@
             <?php
             $No=1;
             $result=pg_query($conn,"SELECT * from public.category");
-            while($row=pg_fetch_array($result,PGSQL_ASSOC))
+            while($row=pg_fetch_array($result, NULL, PGSQL_ASSOC))
             {
             ?>
 			<tr>
