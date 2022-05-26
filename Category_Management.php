@@ -3,9 +3,9 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <?php
-    if (!isset($_SESSION['admin'])or $_SESSION['admin']==1)
+    if (!isset($_SESSION['admin'])or $_SESSION['admin']==0)
     {
-      echo "<script>alert('You are not adminstrator')</script>";
+      echo "<script>alert('You are not adminstrator');</script>";
       echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
     }
     else
@@ -27,7 +27,7 @@
         if(isset($_GET["function"])=='del'){
             if(isset($_GET["id"])){
                 $id=$_GET["id"];
-                pg_query($conn,"delete from category where Cat_ID='$id'");
+                pg_query($conn,"delete from category where cat_id='$id'");
             }
         }
         ?>
