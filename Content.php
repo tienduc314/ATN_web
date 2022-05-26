@@ -6,38 +6,11 @@ include_once("Connection.php");
 		<div class="block-slider block-slider4">
 			<ul class="" id="bxslider-home4">
 				<li>
-					<img src="images/slidetoy.png" alt="Slide">
+					<img src="images/" alt="Slide">
 				</li>
 			</ul>
 		</div>
     </div>
-    <!--Gioi thieu cac chuc nang-->
-    
-    <!-- <div class="promo-area">
-        <div class="zigzag-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <img src="images/blog1.jpg" >
-                        <div><a href="index.php"><p>WHY LUCKY LUKE?</p></a></div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <img src="images/blog2.jpg" >
-                        <div><a href="index.php"><p> URBAS CORLURAY PACK</p></a></div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <img src="images/blog3.jpg" >
-                        <div><a href="index.php"><p> VINTAS SAIGON 1980s</p></a></div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <img src="images/blog4.jpg" >
-                        <div><a href="index.php"><p> SNEAKER FEST VIETNAM</p></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  -->
-    <!-- End promo area -->
 
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
@@ -88,10 +61,10 @@ include_once("Connection.php");
                 <div class="col-md-12">
                     <div class="brand-wrapper">
                         <div class="brand-list">
-                            <img src="img/lego.png" alt="" height="200px" width="200px">
-                            <img src="img/babie.png" alt="" height="200px" width="200px">
-                            <img src="img/lego.png" alt="" height="200px" width="200px">  
-                            <img src="img/babie.png" alt="" height="200px" width="200px">                 
+                            <img src="img/" alt="" height="200px" width="200px">
+                            <img src="img/" alt="" height="200px" width="200px">
+                            <img src="img/" alt="" height="200px" width="200px">  
+                            <img src="img/" alt="" height="200px" width="200px">                 
                         </div>
                     </div>
                 </div>
