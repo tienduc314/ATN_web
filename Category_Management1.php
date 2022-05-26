@@ -19,7 +19,7 @@
         if(isset($_GET["function"])=='del'){
             if(isset($_GET["id"])){
                 $id=$_GET["id"];
-                pg_query($conn,"DELETE from category where cat_id='$id'");
+                pg_query($conn,"DELETE from public.category where cat_id='$id'");
             }
         }
         ?>
