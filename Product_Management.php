@@ -1,14 +1,6 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <?php
-        if(!isset($_SESSION['admin']) OR $_SESSION['admin']==0)
-        {
-            echo '<script> alert("You are not administrator");</script>';
-            echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-        }
-        else
-        {
-    ?>
+
     <script language="javascript">
         function deleteConfirm(){
             if(confirm("Are you sure to delete!")){
@@ -24,7 +16,7 @@
         if(isset($_GET["function"])=="del"){
             if(isset($_GET["id"])){
                 $id=$_GET["id"];
-                $sq="select pro_image from product WHERE product_id='$id'";
+                $sq="SELECT pro_image from product WHERE product_id='$id'";
                 $res = pg_query($conn,$sq);
                 $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
                 $filePic = $row['pro_image'];
@@ -59,11 +51,11 @@
             <?php
                 include_once('connection.php');
 				$No=1;
-                $result= pg_query($conn, "Select product_id, product_name, price, store, pro_qty, pro_image, cat_name
+                $result= pg_query($conn, "SELECT product_id, product_name, price, store, pro_qty, pro_image, cat_name
                 from product a, category b
                 where a.cat_id=b.cat_id Order by prodate desc");
 
-                while($row=pg_fetch_array($result, PGSQL_ASSOC)){
+                while($row=pg_fetch_array($result, NULL, PGSQL_ASSOC)){
 			?>
             <tr>
                <td><?php echo $No; ?></td>
@@ -88,6 +80,4 @@
 
             </table> 
     </form>
-    <?php
-    }
- ?>
+
