@@ -1,58 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   <!-- webicon -->
-   <link rel="shortcut icon" href="./tree/img/logo1.png">
-   
-  <title>Dery</title>
-</head>
-
-<body>
-  
-  
-    <?php
-    if(isset($_POST['btnLogin']))
-    {
-        $us = $_POST['txtUsername'];
-        $pa = $_POST['txtPass'];
-
-        $err = "";
-        if($us=="")
-        {
-            $err .= "Enter Username please<br/>";
-        }
-
-        if($pa=="")
-        {
-            $err .= "Enter password please <br>";
-        }
-
-        if($err!= ""){
-            echo $err;
-        }
-        else{
-            include_once("conection.php");
-            $us = pg_escape_string($conn, $us);
-            $pass = md5($pa);
-            $res = pg_query($conn, "SELECT username, password, state FROM public.customer WHERE username='$us' AND password='$pass'")
-            or die (pg_error($conn));
-            $row = pg_fetch_array($res, NULL, PGSQL_ASSOC);
-            if (pg_num_rows($res)==1){
-                $_SESSION["us"]= $us;
-                $_SESSION["admin"] = $row["state"];
-                echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-            }
-            else{
-                echo "you loged in fail";
-            }
-        }
-    }  
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/responsive.css">
+<script src="js/jquery-3.2.0.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<?php
+   if(isset($_POST['btnLogin']))
+   {
+       $us = $_POST['txtUsername'];
+       $pa = $_POST['txtPass'];
+       $err ="";
+       if($us==""){
+           $err .="Enter Username, please <br/>";
+       }
+       if($pa==""){
+           $err .="Enter Password, please <br/>";   
+       }
+       if($err!=""){
+           echo $err;
+       }
+       else{
+           include_once("connection.php");
+           $pass = md5($pa);
+           $res = pg_query($conn, "SELECT username,password, state FROM customer WHERE username='$us' AND password='$pass'")
+           or die(pg_error($conn));
+           $row= pg_fetch_array($res, PGSQL_ASSOC);
+           if(pg_num_rows($res)==1){
+               $_SESSION["us"] = $us;
+               $_SESSION["admin"] = $row["state"];    
+               echo '<meta http-equiv="refresh" content="0; URL=index.php"/>';
+           }
+           else {
+               echo "You loged in fail";
+           }
+       }
+   }
 ?>
-
 <h1>Login</h1>
 <form id="form1" name="form1" method="POST">
 <div class="row">
@@ -77,8 +60,5 @@
 		</div>  
 	</div>
  </div>
-</form>
-  
-</body>
-</html>
-
+</form>  
+   
