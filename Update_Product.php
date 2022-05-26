@@ -1,43 +1,162 @@
-<?php
-if(isset($_SESSION['admin']) && $_SESSION['admin']==1)
-{
-?>
 <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-	<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
 <?php
-	include_once("connection.php");
-	function bind_Category_List($conn,$selectedValue){
-		$sqlstring="SELECT Cat_ID, Cat_Name from public.category";
-		$result=pg_query($conn,$sqlstring);
-		echo"<Select name='CategoryList' class='form-control'>
-			<option value='0'>Choose category</option>";
-			while($row=pg_fetch_array($result, PGSQL_ASSOC)){
-				if($row['cat_id']==$selectedValue){
-					echo"<option value='". $row['cat_id']."' selected>".$row['cat_name']."</option>";
+	include_once("Connection.php");
+	Function bind_Category_List($conn,$selectedValue){
+		$sqlstring="SELECT cat_id, cat_name FROM public.category";
+		$result = pg_query($conn, $sqlstring);
+		echo "<select name='CategoryList' class='form-control'>
+			<option value='0'>Chose category</option>";
+			while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+				if($row['cat_id'] == $selectedValue)
+				{
+					echo "<option value='".$row['cat_id']."' selected>".$row['cat_name']."</option>";
 				}
 				else{
-					echo"<option value='". $row['cat_id']."'>".$row['cat_name']."</option>";
+					echo "<option value='".$row['cat_id']."'>".$row['cat_name']."</option>";
 				}
 			}
-	echo"</select>";
+		echo "</select>";
 	}
-	if(isset($_GET["id"])){
-		$id=$_GET["id"];
-		$sqlstring="SELECT product_name, price, store, smalldesc, detaildesc, prodate, pro_qty,
-		pro_image, cat_id from public.product where product_id='$id'";
-		$result=pg_query($conn,$sqlstring);
-		$row=pg_fetch_array($result, PGSQL_ASSOC);
-		$proname=$row["product_name"];
-		$short=$row['smalldesc'];
+
+	Function bind_Shop_List($conn,$selectedValue){
+		$sqlstring="SELECT shop_id, shop_name FROM public.shop";
+		$result = pg_query($conn, $sqlstring);
+		echo "<select name='ShopList' class='form-control'>
+			<option value='0'>Chose shop</option>";
+			while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+				if($row['shop_id'] == $selectedValue)
+				{
+					echo "<option value='".$row['shop_id']."' selected>".$row['shop_name']."</option>";
+				}
+				else{
+					echo "<option value='".$row['shop_id']."'>".$row['shop_name']."</option>";
+				}
+			}
+		echo "</select>";
+	}
+
+	if(isset($_GET["id"]))
+	{
+		$id = $_GET["id"];
+		$sqlstring = "SELECT product_name, price, smalldesc, detaildesc, pro_qty, pro_image, cat_id, shop_id FROM public.product WHERE product_id = '$id' ";
+
+		$result = pg_query($conn, $sqlstring);
+		$row = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+		
+		$proname =$row["product_name"];
+		$short = $row['smalldesc'];
 		$detail=$row['detaildesc'];
-		$price=$row['pice'];
-		$store=$row['store'];
+		$price=$row['price'];
 		$qty=$row['pro_qty'];
-		$pic=$row['pro_image'];
-		$category=$row['cat_id'];
-	
+		$pic =$row['pro_image'];
+		$category= $row['cat_id'];
+		$shop= $row['shop_id'];
 ?>
+
+<?php
+	}	
+	else {
+		echo '<meta http-equiv="Refresh" content="0; URL=?page=product_management"/>';
+	}
+?>
+
+<?php	
+	if(isset($_POST["btnUpdate"]))
+	{
+		$id=$_POST["txtID"];
+		$proname=$_POST["txtName"];
+		$short=$_POST['txtShort'];
+		$detail=$_POST['txtDetail'];
+		$price=$_POST['txtPrice'];
+		$qty=$_POST['txtQty'];
+		$pic=$_FILES['txtImage'];
+		$category=$_POST['CategoryList'];
+		$shop=$_POST['ShopList'];
+		$err="";
+
+		if(trim($id)=="")
+		{
+			$err .="<li>Enter Product ID, please</li>";
+		}
+		if(trim($proname)=="")
+		{
+			$err .= "<li>Enter product name,please</li>";
+		}
+		if($category=="0")
+		{
+			$err .= "<li>Choose product category,please</li>";
+		}
+		if(!is_numeric($price))
+		{
+			$err .= "<li>Product price must be number</li>";
+		}
+		if(!is_numeric($qty))
+		{
+			$err .= "<li>Product quantity must be number</li>";
+		}
+		if($err != "")
+		{
+			echo "<ul>$err</ul>";
+		}
+		else
+		{
+			if($pic['name'] !="")
+			{
+				if($pic['type']=="image/jpg" || $pic['type']=="image/jpeg" || $pic['type']=="image/png" || $pic['type']=="image/git" || $pic['type']=="image/jfif")
+				{
+					if($pic['size']<= 614400)
+					{
+						$sq="SELECT * FROM public.product WHERE product_id != '$id' and product_name='$proname'";
+						$result = pg_query($conn,$sq);
+						if(pg_num_rows($result)==0)
+						{
+						copy($pic['tmp_name'], "product-imgs/".$pic['name']);
+						$filePic = $pic['name'];
+
+						$sqlstring="UPDATE product SET product_name='$proname', price=$price, smalldesc='$short',
+						detaildesc='$detail', pro_qty=$qty, pro_image='$filePic', cat_id='$category', shop_id='$shop' WHERE product_id='$id'";
+						pg_query($conn,$sqlstring);
+						echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
+						}
+						else 
+						{
+							echo "<li>Duplicate productId or Name</li>";
+						}
+					}
+					else 
+					{
+						echo "Size of image to big";
+					}	
+				}
+				else 
+				{
+					echo "Image format is not correct";
+				}
+			}
+			else
+			{
+				$sq="SELECT * FROM public.product where product_id != '$id' and product_name='$proname'";
+				$result= pg_query($conn, $sq);
+				if(pg_num_rows($result)==0)
+				{
+					$sqlstring="UPDATE product SET product_name='$proname',
+					price=$price,smalldesc='$short',detaildesc='$detail',pro_qty=$qty,
+					cat_id='$category', shop_id='$shop' WHERE product_id='$id'";
+
+					pg_query($conn,$sqlstring);
+					echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
+				}
+				else 
+				{	
+					echo "<li>Duplicate productId or Name</li>";
+				}
+			}
+		} 
+	}
+?>
+
 <div class="container">
 	<h2>Updating Product</h2>
 
@@ -53,42 +172,40 @@ if(isset($_SESSION['admin']) && $_SESSION['admin']==1)
 					<label for="txtTen" class="col-sm-2 control-label">Product Name(*):  </label>
 							<div class="col-sm-10">
 								  <input type="text" name="txtName" id="txtName" class="form-control" 
-								  placeholder="Product Name" value='<?php echo $proname; ?>'/>
+								  placeholder="Product Name" value='<?php echo $proname;?>'/>
 							</div>
                 </div>   
                 <div class="form-group">   
                     <label for="" class="col-sm-2 control-label">Product category(*):  </label>
 							<div class="col-sm-10">
-							    <?php bind_Category_List($conn, $category); ?>
+							      <?php bind_Category_List($conn,$category); ?>
 							</div>
                 </div>  
+				<div class="form-group">   
+                    <label for="" class="col-sm-2 control-label">Product shop(*):  </label>
+							<div class="col-sm-10">
+							      <?php bind_Shop_List($conn,$shop); ?>
+							</div>
+                </div> 
                           
                 <div class="form-group">  
                     <label for="lblGia" class="col-sm-2 control-label">Price(*):  </label>
 							<div class="col-sm-10">
 							      <input type="text" name="txtPrice" id="txtPrice" class="form-control" placeholder="Price" value='<?php echo $price; ?>'/>
 							</div>
-                 </div>  
-
-				 <div class="form-group">  
-                    <label for="lblcuahang" class="col-sm-2 control-label">Store(*):  </label>
-							<div class="col-sm-10">
-							      <input type="text" name="txtStore" id="txtStore" class="form-control" placeholder="Store" value='<?php echo $store; ?>'/>
-							</div>
-                 </div>  
-
-				 <div class="form-group">   
+                 </div>   
+                            
+                <div class="form-group">   
                     <label for="lblShort" class="col-sm-2 control-label">Short description(*):  </label>
 							<div class="col-sm-10">
-<input type="text" name="txtShort" id="txtShort" class="form-control" placeholder="Short description" value='<?php echo $short; ?>'/>
+							      <input type="text" name="txtShort" id="txtShort" class="form-control" placeholder="Short description" value='<?php echo $short;?>'/>
 							</div>
                 </div>
-                           
                             
                 <div class="form-group">  
         	        <label for="lblDetail" class="col-sm-2 control-label">Detail description(*):  </label>
 							<div class="col-sm-10">
-							      <textarea name="txtDetail" rows="4" class="ckeditor"><?php echo $detail; ?></textarea>
+							      <textarea name="txtDetail" rows="4" class="ckeditor"><?php echo $detail;?></textarea>
               					  <script language="javascript">
                                         CKEDITOR.replace( 'txtDetail',
                                         {
@@ -111,13 +228,11 @@ if(isset($_SESSION['admin']) && $_SESSION['admin']==1)
                                   
 							</div>
                 </div>
-      
-               
                             
             	<div class="form-group">  
                     <label for="lblSoLuong" class="col-sm-2 control-label">Quantity(*):  </label>
 							<div class="col-sm-10">
-							      <input type="number" name="txtQty" id="txtQty" class="form-control" placeholder="Quantity" value="<?php echo $qty; ?>"/>
+							      <input type="number" name="txtQty" id="txtQty" class="form-control" placeholder="Quantity" value="<?php echo $qty;?>"/>
 							</div>
                 </div>
  
@@ -125,111 +240,16 @@ if(isset($_SESSION['admin']) && $_SESSION['admin']==1)
 	                <label for="sphinhanh" class="col-sm-2 control-label">Image(*):  </label>
 							<div class="col-sm-10">
 							<img src='product-imgs/<?php echo $pic; ?>' border='0' width="50" height="50"  />
-<input type="file" name="txtImage" id="txtImage" class="form-control" value=""/>
+							      <input type="file" name="txtImage" id="txtImage" class="form-control" value=""/>
 							</div>
                 </div>
                         
 				<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 						      <input type="submit"  class="btn btn-primary" name="btnUpdate" id="btnUpdate" value="Update"/>
-                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Ignore" onclick="window.location='index.php'" />
+                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Ignore" onclick="window.location='Product_Management.php'" />
                               	
 						</div>
 				</div>
 			</form>
 </div>
-<?php
-	}
-	else{
-		echo'<meta http-equiv="refresh" content="0;URL=Product_Management.php"/>';
-	}
-?>
-<?php	
-	if(isset($_POST["btnUpdate"]))
-	{
-		$id=$_POST["txtID"];
-		$proname=$_POST["txtName"];
-		$short=$_POST['txtShort'];
-		$detail=$_POST['txtDetail'];
-		$price=$_POST['txtPrice'];
-		$store=$_POST['txtStore'];
-		$qty=$_POST['txtQty'];
-		$pic=$_FILES['txtImage'];
-		$category=$_POST['CategoryList'];
-		$err="";
-		if(trim($id)==""){
-			$err.="<li>Enter product ID, please</li>";
-		}
-		if(trim($proname)==""){
-			$err.="<li>Enter product name, please</li>";
-		}
-		if(!is_numeric($price)){
-			$err.="<li>Product price must be number</li>";
-		}
-		if(!is_numeric($store)){
-			$err .="<li>Name store must be long, please</li>";
-		}
-		if(!is_numeric($qty)){
-			$err.="<li>Product price must be number</li>";
-		}
-		if($err!=""){
-			echo "<ul>$err</ul>";
-		}
-		else{
-			if($pic['name']!="")
-			{
-			    if($pic['type']=="image/jpg" || $pic['type']=="image/jpeg" ||$pic['type']=="image/png"
-			        ||$pic['type']=="image/gif"){
-				    if($pic['size']<= 614400){
-					    $sq="SELECT * from public.product where product_id != '$id' and product_name='$proname'";
-					    $result=pg_query($conn,$sq);
-					    if(pg_num_rows($result)==0){
-						        copy($pic['tmp_name'], "product-imgs/".$pic['name']);
-						        $filePic = $pic['name'];
-						        $sqlstring="UPDATE product set product_Name='$proname', price='$price', store='$store',smalldesc='$short',
-						        detaildesc='$detail', pro_qty=$qty,
-						        pro_image='$filePic',cat_id='$category',
-						        proDate='".date('Y-m-d H:i:s')."' WHERE product_id='$id'";
-						        pg_query($conn,$sqlstring);
-						        echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
-					        }
-					        else{
-						        echo "<li>Duplicate product Name</li>";
-					        }
-				        }
-				        else{
-					        echo "Size of image too big";
-				        }
-			        }
-			        else{
-				        echo "Image format is not correct";
-			        }		
-		    }
-		    else{
-				
-				$sq="SELECT * From public.product Where product_id != '$id' and product_name='$proname'";
-
-				$result=pg_query($conn,$sq);
-				if(pg_num_rows($result)==0){
-					$sqlstring="UPDATE product set product_name='$proname',
-					price=$price, store='$store', smalldesc='$short', detaildesc='$detail',
-					pro_qty=$qty, cat_id='$category', pro_image='$Pic',
-					prodate='".date('Y-m-d H:i:s')."' WHERE product_id='$id'";
-					pg_query($conn,$sqlstring);
-echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
-				}
-				else{
-					echo "<li>Duplicate product Name</li>";
-				}
-			}		
-	    }
-	}	
-?>
-<?php
-}
-else 
-{
-    echo '<script>alert("You are not administrator")</script>';
-    echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
-}
-?>

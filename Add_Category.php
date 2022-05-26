@@ -4,33 +4,38 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	    
 	<?php
-		include_once("connection.php");
+		include_once("Connection.php");
 		if(isset($_POST["btnAdd"]))
 		{
 			$id = $_POST["txtID"];
 			$name = $_POST["txtName"];
 			$des = $_POST["txtDes"];
 			$err="";
+
 			if($id==""){
-				$err .="<li>Enter Category ID, please</li>";
+				$err.="<li>Enter Category ID, please</li>";
 			}
 			if($name==""){
-				$err .="<li>Enter Category Name, please</li>";
+				$err.="<li>Enter Category name, please</li>";
 			}
-			if($err!==""){
-				echo "<ul>$err</ul>";
+			if($err!=""){
+				echo"<ul>$err</ul>";
 			}
 			else{
-				$sq="SELECT * from public.category where cat_id='$id' or cat_name='$name'";
+				$id = htmlspecialchars(pg_escape_string($conn, $id));
+				$name = htmlspecialchars(pg_escape_string($conn, $name));
+				$des = htmlspecialchars(pg_escape_string($conn, $des));
+
+				$sq = "SELECT * FROM public.category WHERE cat_id = '$id' OR cat_name = '$name'";
 				$result = pg_query($conn,$sq);
 				if(pg_num_rows($result)==0)
 				{
-					pg_query($conn, "INSERT INTO category (cat_id, cat_name, cat_des) VALUE ('$id', '$name','$des')");
-					echo '<meta http-equiv="refesh" content="0;URL=Category_Management.php"/>';
+					pg_query($conn, "INSERT INTO category (cat_id, cat_name, cat_des) VALUES ('$id', '$name', '$des')");
+					echo '<meta http-equiv="refresh" content ="0;URL=?page=category_management"/>';
 				}
-				else
-				{
-					echo "<li>Duplicate category ID or Name</li>";
+
+				else{
+					echo "<li>Duplicate category ID or Name </li>";
 				}
 			}
 		}
@@ -62,7 +67,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 						      <input type="submit"  class="btn btn-primary" name="btnAdd" id="btnAdd" value="Add new"/>
-                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Ignore" onclick="window.location='Category_Management.php'" />
+                              <input type="button" class="btn btn-primary" name="btnIgnore"  id="btnIgnore" value="Ignore" onclick="window.location='?page=category_management'" />
                               	
 						</div>
 					</div>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATN's Store</title>
+    <title>ATN - Discover YOU</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -33,51 +33,78 @@
     
     <link href="css/salomon.css" rel="stylesheet">
     
-<!--datatable-->
-	<script src="js/jquery-3.2.0.min.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/dataTables.bootstrap.min.js"></script>
-    
-  </head>
-  <body>
+    <!--datatable-->
+	<script src="js/jquery-3.2.0.min.js"/></script>
+    <script src="js/jquery.dataTables.min.js"/></script>
+    <script src="js/dataTables.bootstrap.min.js"/></script>
+
+    </head>
+    <body>
   
-  <?php
-    session_start();
-    include_once("connection.php"); 
-  ?>
+    <?php
+        session_start();
+        include_once("Connection.php"); 
+    ?>
+
    <header id="header"><!--header-->
-		<div class="header-middle" style="background-color:#008000"><!--header-middle-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +84 3377 505 347</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> ducntgcc19107@fpt.edu.vn</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+                                <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+		
+		<div class="header-middle" style="background-color:#069"><!--header-middle-->
 			<div class="container" >
 				<div>
 					<div class="col-sm-6" >
 						<div class="logo pull-left" >
-                            <a href="index.php" style="background-color:#8B4513;color:#FFF">ATN's Store
-                            <img src="images/ATN's.jpg" width="150" height="0"></a>
+                            <a href="index.php" style="background-color:#069;color:#FFF">
+                            <img src="images/logo1.png" width="70" height="70"></a>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-6" style="transform: translateY(+30%)">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav" >
+                                <li><a href="#" style="background-color:#069;color:#FFF">
+                                <li><a href="index.php" style="background-color:#069;color:#FFF">
+                                <i class="fa fa-shopping-cart"></i> Cart</a></li> 
                                 <?php
-                                if(isset($_SESSION['us']) && $_SESSION['us'] !="") {
+                                    if(isset($_SESSION['us']) && $_SESSION['us'] != ""){
                                 ?>
-                                <li><a style="background-color:#D2691E;color:#FFF" href="?page=update_customer">
-                                <i class="fa fa-lock"></i> Hi, <?php echo $_SESSION['us']?></a>
-                                </li>
-                                <li><a href="?page=logout" style="background-color:#D2691E;color:#FFF">
-                                <i class="fa fa-crosshairs"></i>Logout</a><li>
-                            <?php
-                                }
-                                else
-                                {
-                            ?>
-                                <li><a href="?page=login" style="background-color:#D2691E;color:#FFF">
-                                <i class="fa fa-lock"></i>Login<a></li>
-                                <li><a href="?page=register" style="background-color:#D2691E;color:#FFF">
-                                <i class="fa fa-star"></i>Register</a></li>
+                                    <li><a style="background-color:#069;color:#FFF" href="?page=update_customer">
+                                        <i class="fa fa-lock"></i>Hi, <?php echo $_SESSION['us']?></a></li>
+                                    <li><a href="?page=logout" style="background-color:#069;color:#FFF";color:#FFF>
+                                        <i class="fa fa-crosshairs"></i>Logout</a></li>
                                 <?php
-                                }
-                                ?>                 
+                                    }
+                                    else{
+                                ?>
+                                        <li><a href="?page=login" style="background-color:#069;color:#FFF">
+                                        <i class="fa fa-lock"></i>Login</a></li>
+                                        <li><a href="?page=register" style="background-color:#069;color:#FFF">
+                                        <i class="fa fa-star"></i>Register</a></li>
+                                        <?php
+                                    }
+                                ?>
 							</ul>
 						</div>
 					</div>
@@ -88,14 +115,6 @@
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-                <div class="col-sm-6">
-						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> 1900559986 </a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> atnstore@gmail.com</a></li>
-							</ul>
-						</div>
-					</div>
 					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -108,21 +127,27 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.php" class="active">Home</a></li>
-                                </li> 
 								<li class="dropdown"><a href="#">Management<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="?page=category_management">Category</a></li>
 										<li><a href="?page=product_management">Product</a></li>
+                                        <li><a href="?page=shop_management">Shop</a></li>
                                     </ul>
                                 </li> 
-								<li><a href="index.php">Contact us</a></li>
+								<li><a href="index.php">Cart</a></li>
+                                <li><a href="index.php">Feedback</a></li>
+								<li><a href="index.php">Contact</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
-						</div>
+                    <!-- Search box -->
+					<div class="col-sm-3" style="transform: translateY(+22.9%)">
+                        <form class="d-flex" action="index.php?page=search" method="post">
+                            <!-- <input class="form-control me-2" type="text" name="txtSearch" placeholder="Search" aria-label="Search">
+                            <button type="submit" class="btn btn-info">Search</button> -->
+                            <input type="text" placeholder="Search" name="txtSearch">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
 					</div>
 				</div>
 			</div>
@@ -130,83 +155,106 @@
 	</header><!--/header-->
   
     <?php
-include_once("connection.php");
-if(isset($_GET['page']))
-{
-$page = $_GET['page'];
-if($page=="register"){
-include_once("Register.php");
-}
-elseif($page=="login"){
-include_once("Login.php");
-}
-elseif($page=="category_management"){
-include_once("Category_Management1.php");
-}
-
-elseif($page=="product_management"){
-include_once("Product_Management.php");
-}
-elseif($page=="add_category"){
-include_once("Add_Category.php");
-}
-elseif($page=="update_category"){
-include_once("Update_Category.php");
-}
-elseif($page=="logout"){
-include_once("Logout.php");
-}
-elseif($page=="add_product"){
-    include_once("Add_Product.php");
-}
-elseif ($page=="update_product") {
-    include_once("Update_Product.php");
-}
-elseif ($page=="management_productdetail") {
-    include_once("Management_Productdetail.php");
-}
-}
-else{
-include_once("Content.php");
-}
-?>
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+            if($page=="register"){
+                include_once("Register.php");
+            }
+            elseif($page=="login"){
+                include_once("Login1.php");
+            }
+            elseif($page=="category_management"){
+                include_once("Category_Management.php");
+            }
+            elseif($page=="product_management"){
+                include_once("Product_Management.php");
+            }
+            elseif($page=="shop_management"){
+                include_once("Shop_Management.php");
+            }
+            elseif($page=="add_category"){
+                include_once("Add_Category.php");
+            }
+            elseif($page=="update_category"){
+                include_once("Update_Category.php");
+            }
+            elseif($page=="logout"){
+                include_once("Logout.php");
+            }
+            elseif($page=="add_product"){
+                include_once("Add_Product.php");
+            }
+            elseif($page=="update_product"){
+                include_once("Update_Product.php");
+            }
+            elseif($page=="add_shop"){
+                include_once("Add_Shop.php");
+            }
+            elseif($page=="update_shop"){
+                include_once("Update_Shop.php");
+            }
+            elseif($page=="update_customer"){
+                include_once("Update_customer.php");
+            }
+            elseif($page=="search"){
+                include_once("Search.php");
+            }
+        }
+        else{
+            include_once("Content.php");
+        }
+	?>
+      
     <div class="footer-top-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-about-us">
-                        <h2>ATN's Store</h2>
-                        <p>ATN Company is a company selling children's toys with branches throughout the provinces from north to south in Vietnam.</p>
+                        <h2>About us</h2>
+                        <p>We're here to help all families discover the joy of everyday life. ATN is a general merchandise retailer with stores in all 50 U.S. states and the District of Columbia.</p>
                         <div class="footer-social">
-                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-menu">
-                        <h2 class="footer-wid-title">Contact us</h2>
+                        <h2 class="footer-wid-title">User</h2>
                         <ul>
-                            <li><a href="#">ATN's Store</a></li>
-                            <li><a href="#">Address: Head office in Can Tho </a></li>
-                            <li><a href="#">Website:http://ATNStore.vn/.</a></li>
-                            <li><a href="#">Other information</a></li>
+                            <li><a href="index.php">Account</a></li>
+                            <li><a href="index.php">Bill</a></li>
+                            <li><a href="index.php">Interests</a></li>
+                            <li><a href="index.php">Supplier</a></li>
                         </ul>                        
                     </div>
                 </div>
+                
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-menu">
-                        <h2 class="footer-wid-title">Policy</h2>
+                        <h2 class="footer-wid-title">Classify</h2>
                         <ul>
-                            <li><a href="#">Guarantee</a></li>
-                            <li><a href="#">Transport</a></li>
-                            <li><a href="#">Contract Signing Process</a></li>
-                            <li><a href="#">Return goods</a></li>
+                            <li><a href="index.php">--- ---</a></li>
+                            <li><a href="index.php">--- ---</a></li>
+                            <li><a href="index.php">--- ---</a></li>
+                            <li><a href="index.php">--- ---</a></li>
                         </ul>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-newsletter">
+                        <h2 class="footer-wid-title">Newsletter</h2>
+                        <div class="newsletter-form">
+                            <form action="#">
+                                <input type="email" placeholder="Enter Email Address">
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,9 +265,7 @@ include_once("Content.php");
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="copyright">
-                        <p>&copy; 2022 ATN's Store</p>
-                    </div>
+                    <div class="copyright"><h3>Copyrights © 2022 by <a href="index.php">NGUYEN TIEN DUC</a></h3></div>
                 </div>
             </div>
         </div>
@@ -228,7 +274,7 @@ include_once("Content.php");
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
     
-    <!-- Bootstrap JS form CDN -->
+    <!-- Bootstrap JS form CDN --> 
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     
     <!-- jQuery sticky menu -->

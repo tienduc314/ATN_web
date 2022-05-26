@@ -1,86 +1,95 @@
- <!-- Bootstrap -->
+<!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
-	<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
-	<?php
-	include_once("connection.php");
+<script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
+<?php
+	include_once("Connection.php");
 	function bind_Category_List($conn){
-		$sqlstring = "SELECT cat_id, cat_name from public.category";
+		$sqlstring = "SELECT cat_id, cat_name FROM public.category";
 		$result = pg_query($conn, $sqlstring);
-		echo "<SELECT name='CategoryList' class='form-control'>
-		<option value='0'>Choose category</option>";
-		while ($row = pg_fetch_array($result, PGSQL_ASSOC)){
-			echo "<option value='".$row['cat_id']."'>".$row['cat_name']."</option>";
-		}
+		echo"<select name='CategoryList' class='form-control'>
+			<option value='0'>Choose category</option>";
+			while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+				echo"<option value='".$row['cat_id']."'>".$row['cat_name']."</option>";
+			}
 		echo "</select>";
 	}
-	 ?>
-	 <?php
-	 if(isset($_POST["btnAdd"]))
-	 {
-		 $id = $_POST["txtID"];
-		 $proname = $_POST["txtName"];
-		 $short = $_POST["txtShort"];
-		 $detail = $_POST['txtDetail'];
-		 $price = $_POST['txtPrice'];
-		 $store = $_POST['txtStore'];
-		 $qty = $_POST['txtQty'];
-		 $pic = $_FILES['txtImage'];
-		 $category = $_POST['CategoryList'];
-		 $err = "";
 
-		 if(trim($id)==""){
-			 $err .="<li>Enter product ID, please</li>";
-		 }
-		 if(trim($proname)==""){
-			$err .="<li>Enter product name, please</li>";
+	function bind_Shop_List($conn){
+		$sqlstring = "SELECT shop_id, shop_name FROM public.shop";
+		$result = pg_query($conn, $sqlstring);
+		echo"<select name='ShopList' class='form-control'>
+			<option value='0'>Choose shop</option>";
+			while ($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)){
+				echo"<option value='".$row['shop_id']."'>".$row['shop_name']."</option>";
+			}
+		echo "</select>";
+	}
+
+	if(isset($_POST["btnAdd"]))
+	{
+		$id = $_POST["txtID"];
+		$proname = $_POST["txtName"];
+		$short = $_POST['txtShort'];
+		$detail = $_POST['txtDetail'];
+		$price = $_POST['txtPrice'];
+		$qty = $_POST['txtQty'];
+		$pic = $_FILES['txtImage'];
+		$category = $_POST['CategoryList'];
+		$shop = $_POST['ShopList'];
+		$err="";
+
+		if(trim($id)==""){
+			$err .= "<li>Enter product ID please</li>";
 		}
+
+		if(trim($proname)==""){
+			$err .= "<li>Enter product name please</li>";
+		}
+
 		if($category=="0"){
-			$err .="<li>Choose product category, please</li>";
+			$err .= "<li>Choose product category please</li>";
 		}
+ 
 		if(!is_numeric($price)){
-			$err .="<li>Product price must be number, please</li>";
+			$err .= "<li>Product price must be a number</li>";
 		}
-		if(!is_numeric($store)){
-			$err .="<li>Name store must be long, please</li>";
-		}
-		if(!is_numeric($qty)){
-			$err .="<li>Product quantiy must be number, please</li>";
-		}
-		if($err !=""){
+
+		if($err!=""){
 			echo "<ul>$err</ul>";
 		}
+
 		else{
-			if($pic['type']=="image/jpg" || $pic['type']=="image/jpeg" || $pic['type']=="image/png" || $pic['type']=="image/gif")
-			{
-				if($pic['size']<= 614400)
+			if($pic['type']=="image/jpg" || $pic['type']=="image/jpeg" || $pic['type']=="image/png" || $pic['type']=="image/gif" || $pic['type']=="image/jfif"){
+				if($pic['size'] <= 614400)
 				{
-					$sq="SELECT * FROM public.product where product_id='$id' or product_name='$proname'";
-					$result= pg_query($conn, $sq);
+					$sq = "SELECT * from public.product where product_id='$id' or product_name = '$proname'";
+					$result = pg_query($conn, $sq);
 					if(pg_num_rows($result)==0)
 					{
-					  copy($pic['tmp_name'], "product-imgs/".$pic['name']);
-					  $filePic = $pic['name'];
-					  $sqlstring = "INSERT INTO product(
-						product_id, product_name, price, store, smalldesc, detaildesc, prodate, pro_qty, pro_image, cat_id)
-						VALUES ('$id', '$proname', '$price','$store', '$short', '$detail', '".date('Y-m-d H:i:s')."', '$qty', '$filePic', '$category')";
-					  pg_query($conn, $sqlstring);
-					  echo '<meta http-equiv="refresh" content="0; URL=?page=product_management" />';
-				    }
-				    else{
-					    echo "<li>Duplicate product ID or Name</li>";
-				    }
-		 	    } 
+						copy($pic['tmp_name'], "product-imgs/".$pic['name']);
+						$filePic = $pic['name'];
+						$sqlstring = "INSERT INTO product(product_id, product_name, price, smalldesc, detaildesc, pro_qty, pro_image, cat_id, shop_id)
+						Values('$id', '$proname', $price, '$short', '$detail', $qty, '$filePic', '$category', '$shop')";
+
+						pg_query($conn, $sqlstring);
+						echo '<meta http-equiv="refresh" content="0;URL=?page=product_management"/>';
+					}
+					else{
+						echo"<li>Duplicate product ID or Name</li>";
+					}
+				}
+
 				else{
 					echo "Size of image too big";
 				}
 			}
-			else
-			{
+			else{
 				echo "Image format is not correct";
-			}	
+			}
 		}
-	 }
-	 ?>
+	}
+?>
+
 <div class="container">
 	<h2>Adding new Product</h2>
 
@@ -91,8 +100,8 @@
 							      <input type="text" name="txtID" id="txtID" class="form-control" placeholder="Product ID" value=''/>
 							</div>
 				</div> 
-				<div class="form-group">
-                <label for="txtTen" class="col-sm-2 control-label">Product Name(*):  </label>
+				<div class="form-group"> 
+					<label for="txtTen" class="col-sm-2 control-label">Product Name(*):  </label>
 							<div class="col-sm-10">
 							      <input type="text" name="txtName" id="txtName" class="form-control" placeholder="Product Name" value=''/>
 							</div>
@@ -100,7 +109,13 @@
                 <div class="form-group">   
                     <label for="" class="col-sm-2 control-label">Product category(*):  </label>
 							<div class="col-sm-10">
-							      <?php bind_Category_List($conn);  ?>
+							      <?php bind_Category_List($conn); ?>
+							</div>
+                </div>  
+				<div class="form-group">   
+                    <label for="" class="col-sm-2 control-label">Product shop(*):  </label>
+							<div class="col-sm-10">
+							      <?php bind_Shop_List($conn); ?>
 							</div>
                 </div>  
                           
@@ -110,13 +125,6 @@
 							      <input type="text" name="txtPrice" id="txtPrice" class="form-control" placeholder="Price" value=''/>
 							</div>
                  </div>   
-
-				 <div class="form-group">  
-                    <label for="lblcuahang" class="col-sm-2 control-label">Store(*):  </label>
-							<div class="col-sm-10">
-							      <input type="text" name="txtStore" id="txtStore" class="form-control" placeholder="Store" value=''/>
-							</div>
-                 </div>  
                             
                 <div class="form-group">   
                     <label for="lblShort" class="col-sm-2 control-label">Short description(*):  </label>

@@ -24,7 +24,7 @@
     ?>
 
     <?php
-        include_once("connection.php");
+        include_once("Connection.php");
 
         if(isset($_GET["function"])=="del")
     {
