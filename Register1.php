@@ -5,48 +5,43 @@
 <script src="js/jquery-3.2.0.min.js"/></script>
 <script src="js/jquery.dataTables.min.js"/></script>
 <script src="js/dataTables.bootstrap.min.js"/></script>
- 
 <?php
-if(isset($_POST['btnRegister']))
-{
-    $us = $_POST['txtUsername'];
-    $pass1 = $_POST['txtPass1'];
-    $pass2 = $_POST['txtPass2'];
-    $fullname = $_POST['txtFullname'];
-    $email = $_POST['txtEmail'];
-    $address = $_POST['txtAddress'];
-    $tel = $_POST['txtTel'];
-
+    if(isset($_POST['btnRegister'])){
+        $us = $_POST['txtsUsername'];
+        $pass1 = $_POST['txtPass1'];
+        $pass2 = $_POST['txtPass2'];
+        $fullname = $_POST['txtFullname'];
+        $email = $_POST['txtEmail'];
+        $address = $_POST['txtAddress'];
+        $tel = $_POST['txtTel'];
+    
     if(isset($_POST['grpRender'])){
         $sex = $_POST['grpRender'];
     }
-
     $date = $_POST['slDate'];
     $month = $_POST['slMonth'];
-    $year = $_POST['slYear'];
+    $years = $_POST['slYear'];
 
-    $err = "";
-
-    if($us==""||$pass1==""||$pass2==""||$fullname==""||$email==""||$address==""||!isset($sex)){
-        $err .= "<li>Enter fields with mark (*), please</li>";
+    $err ="";
+    if($us=="" || $pass1=="" || $pass2=="" || $fullname=="" || $email=="" || $address=="" ||!isset($sex)){
+        $err .="<li>Enter fields with mark (*), please</li>";
     }
 
     if(strlen($pass1)<=5){
-        $err .= "<li>Password must be greater than 5 chars</li>";
+        $err .="<li>Password must be greater than 5 chars</li>";
     }
 
     if($pass1!=$pass2){
-        $err .= "<li>Password and confirm password are the same</li>";
+        $err .="<li>Password and confirm password are the same</li>";
     }
 
     if($_POST['slYear']=="0"){
-        $err .= "<li>Choose year of birth, please</li>";
+        $err .="<li>Choose Year of Birth, please</li>";
     }
 
-    if($err!= ""){
+    if($err!=""){
         echo $err;
     }
-
     else{
         include_once("connection.php");
         $pass = md5($pass1);
@@ -54,23 +49,16 @@ if(isset($_POST['btnRegister']))
         $res = pg_query($conn,$sq);
         if(pg_num_rows($res)==0)
         {
-            pg_query($conn, "INSERT INTO customer (username, password, 
-            custname, gender, address, telephone, email, cusdate, cusmonth, 
-            cusyear, ssn, activecode, state)
-
-            VALUES('$us', '$pass', '$fullname', '$sex', '$address', '$tel', '$email', '$date', 
-            '$month', '$year', '', '', 0)") or die(pg_error($conn));
-            echo '<meta http-equiv="refresh" content="0;URL=?page=login"/>';
+            pg_query($conn, "INSERT INTO customer (username, password, custName, gender, address,telephone, email, cusdate, cusmonth, cusyear, ssn, activecode, state)
+            VALUES ('$us','$pass','$fullname','$sex','$address','$tel','$email','$date','$month','$years','','',0)") or die (pg_error($conn));
+            echo "You have register successfully";
         }
         else{
             echo "Username or email already exists";
         }
-        echo "Register successfully ";
     }
 }
 ?>
-
-
 <div class="container">
         <h2>Member Registration</h2>
 			 	<form id="form1" name="form1" method="post" action="" class="form-horizontal" role="form">
@@ -179,7 +167,7 @@ if(isset($_POST['btnRegister']))
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 						      <input type="submit"  class="btn btn-primary" name="btnRegister" id="btnRegister" value="Register"/>
-                              	
+                              <input type="submit" name="btnCancel"  class="btn btn-primary" id="btnLRegister" value="Cancel"/>
 						</div>
                      </div>
 				</form>
