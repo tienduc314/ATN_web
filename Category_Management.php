@@ -3,7 +3,7 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <?php
-    if (!isset($_SESSION['admin'])or $_SESSION['admin']==0)
+    if (!isset($_SESSION['admin'])or $_SESSION['admin']==1)
     {
       echo "<script>alert('You are not adminstrator')</script>";
       echo '<meta http-equiv="refresh" content="0;URL=index.php"/>';
